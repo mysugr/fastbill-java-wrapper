@@ -1,1 +1,1 @@
-"!https://travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME].png!":https://travis-ci.org/[YOUR_GITHUB_USERNAME]/[YOUR_PROJECT_NAME]
+"!https://travis-ci.org/testobject/fastbill-java-wrapper.png!":https://travis-ci.org/testobject/fastbill-java-wrapper
