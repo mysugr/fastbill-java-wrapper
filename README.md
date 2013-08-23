@@ -1,1 +1,1 @@
-"!https://travis-ci.org/testobject/fastbill-java-wrapper.png!":https://travis-ci.org/testobject/fastbill-java-wrapper
+[![Build Status](https://travis-ci.org/testobject/fastbill-java-wrapper.png)](https://travis-ci.org/testobject/fastbill-java-wrapper)
