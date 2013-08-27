@@ -17,7 +17,7 @@ public interface FastBill {
 
 	final class Factory {
 
-		static FastBill create(final String userName, final String token) {
+		public static FastBill create(final String userName, final String token) {
 			ClientConfig clientConfig = new DefaultClientConfig();
 			clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 

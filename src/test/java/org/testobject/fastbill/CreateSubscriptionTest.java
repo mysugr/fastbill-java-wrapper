@@ -1,6 +1,7 @@
 package org.testobject.fastbill;
 
 import org.junit.Test;
+import org.testobject.fastbill.SubscriptionService.Subscription;
 
 public class CreateSubscriptionTest {
 	
@@ -8,10 +9,12 @@ public class CreateSubscriptionTest {
 	
 	@Test
 	public void creatSubscription(){
-		long customerId = 297966;
+		long customerId = 298020;
 		long productId = 4;
 		
 		long subscriptionId = subscriptionService.createSubscription(customerId, productId);
+		Subscription subscription = subscriptionService.getSubscription(subscriptionId);
+		System.out.println();
 	}
 
 }
