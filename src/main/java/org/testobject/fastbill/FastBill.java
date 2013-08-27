@@ -37,6 +37,11 @@ public interface FastBill {
 				public SubscriptionService getSubscriptionService() {
 					return new SubscriptionServiceImpl(endpointResource);
 				}
+				
+				@Override
+				public InvoiceService getInvoiceService() {
+					return new InvoiceServiceImpl(endpointResource);
+				}
 			};
 		}
 	}
@@ -44,5 +49,7 @@ public interface FastBill {
 	public CustomerService getCustomerService();
 
 	public SubscriptionService getSubscriptionService();
+	
+	public InvoiceService getInvoiceService();
 
 }
