@@ -1,6 +1,5 @@
 package org.testobject.fastbill;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -9,7 +8,6 @@ import javax.ws.rs.core.MediaType;
 import org.testobject.fastbill.jersey.RequestBuilder;
 import org.testobject.fastbill.jersey.ResponseReader;
 
-import com.google.common.base.Preconditions;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 

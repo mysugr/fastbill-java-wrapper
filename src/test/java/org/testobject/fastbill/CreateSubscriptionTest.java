@@ -14,7 +14,7 @@ public class CreateSubscriptionTest {
 		
 		long subscriptionId = subscriptionService.createSubscription(customerId, productId);
 		Subscription subscription = subscriptionService.getSubscription(subscriptionId);
-		System.out.println();
+		System.out.println(subscription);
 	}
 
 }

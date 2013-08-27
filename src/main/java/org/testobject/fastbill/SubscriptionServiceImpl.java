@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import javax.ws.rs.core.MediaType;
@@ -12,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 import org.testobject.fastbill.jersey.RequestBuilder;
 import org.testobject.fastbill.jersey.ResponseReader;
 
-import com.google.common.base.Preconditions;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 

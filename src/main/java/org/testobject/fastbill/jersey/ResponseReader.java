@@ -9,6 +9,7 @@ public class ResponseReader {
 
 	private Map<String, Object> responseEntity;
 
+	@SuppressWarnings("unchecked")
 	public ResponseReader(ClientResponse response) {
 		Preconditions.checkState(response.getStatus() == 200);
 
@@ -18,6 +19,7 @@ public class ResponseReader {
 		Preconditions.checkState(errors == null,  errors != null ? "request had erros " + errors.toString() : "no errors");
 	}
 
+	@SuppressWarnings("unchecked")
 	public <T> T getData(String name) {
 		return (T) responseEntity.get(name);
 	}
