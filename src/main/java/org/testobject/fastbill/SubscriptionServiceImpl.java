@@ -2,7 +2,6 @@ package org.testobject.fastbill;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -55,9 +54,9 @@ class SubscriptionServiceImpl implements SubscriptionService {
 		return new Subscription(subscriptionId, customerId, toDate(subscription.get("START")), toDate(subscription.get("NEXT_EVENT")), toDate(subscription.get("LAST_EVENT")), subscription.get("STATUS").toString());
 	}
 
-	private Date toDate(Object object) {
+	private long toDate(Object object) {
 		try {
-			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(object.toString());
+			return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss Z").parse(object.toString() + " +0100").getTime();
 		} catch (ParseException e) {
 			throw new RuntimeException(object.toString() + " has the wrong date format");
 		}

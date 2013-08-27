@@ -1,6 +1,5 @@
 package org.testobject.fastbill;
 
-import java.util.Date;
 
 public interface SubscriptionService {
 	
@@ -8,12 +7,12 @@ public interface SubscriptionService {
 		
 		private long id;
 		private String customerId;
-		private Date start;
-		private Date next;
-		private Date last;
+		private long start;
+		private long next;
+		private long last;
 		private String status;
 
-		public Subscription(long id, String customerId, Date start, Date next, Date last, String status) {
+		public Subscription(long id, String customerId, long start, long next, long last, String status) {
 			this.id = id;
 			this.customerId = customerId;
 			this.start = start;
@@ -30,15 +29,15 @@ public interface SubscriptionService {
 			return customerId;
 		}
 
-		public Date getStart() {
+		public long getStart() {
 			return start;
 		}
 
-		public Date getNext() {
+		public long getNext() {
 			return next;
 		}
 
-		public Date getLast() {
+		public long getLast() {
 			return last;
 		}
 
