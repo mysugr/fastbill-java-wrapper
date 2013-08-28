@@ -54,8 +54,18 @@ class SubscriptionServiceImpl implements SubscriptionService {
 
 		String customerId = (String) subscription.get("CUSTOMER_ID");
 		return new Subscription(subscriptionId, customerId, Util.secondsToTimestamp((String) subscription.get("START")),
-				Util.secondsToTimestamp((String) subscription.get("NEXT_EVENT")), Util.secondsToTimestamp((String) subscription.get("LAST_EVENT")),
+				Util.secondsToTimestamp((String) subscription.get("NEXT_EVENT")), Util.secondsToTimestamp((String) subscription
+						.get("LAST_EVENT")),
 				subscription.get("STATUS").toString());
+	}
+
+	@Override
+	public void cancelSubscription(long subscriptionId) {
+		Map<String, Object> request = new RequestBuilder("subscription.cancel")
+				.addData("SUBSCRIPTION_ID", subscriptionId).build();
+
+		new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.post(ClientResponse.class, request));
 	}
 
 }

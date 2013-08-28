@@ -1,10 +1,9 @@
 package org.testobject.fastbill;
 
-
 public interface SubscriptionService {
-	
+
 	public class Subscription {
-		
+
 		private long id;
 		private String customerId;
 		private long start;
@@ -44,11 +43,13 @@ public interface SubscriptionService {
 		public String getStatus() {
 			return status;
 		}
-		
+
 	}
 
 	long createSubscription(long customerId, long productId);
-	
-	public Subscription getSubscription(long subscriotionId);
+
+	Subscription getSubscription(long subscriptionId);
+
+	void cancelSubscription(long subscriptionId);
 
 }
