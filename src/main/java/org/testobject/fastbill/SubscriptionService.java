@@ -1,5 +1,7 @@
 package org.testobject.fastbill;
 
+import java.util.List;
+
 public interface SubscriptionService {
 
 	public class Subscription {
@@ -10,13 +12,15 @@ public interface SubscriptionService {
 		private long next;
 		private long last;
 		private String status;
+		private long product;
 
-		public Subscription(long id, String customerId, long start, long next, long last, String status) {
+		public Subscription(long id, String customerId, long start, long next, long last, long product, String status) {
 			this.id = id;
 			this.customerId = customerId;
 			this.start = start;
 			this.next = next;
 			this.last = last;
+			this.product = product;
 			this.status = status;
 		}
 
@@ -39,6 +43,10 @@ public interface SubscriptionService {
 		public long getLast() {
 			return last;
 		}
+		
+		public long getProduct() {
+			return product;
+		}
 
 		public String getStatus() {
 			return status;
@@ -49,6 +57,8 @@ public interface SubscriptionService {
 	long createSubscription(long customerId, long productId);
 
 	Subscription getSubscription(long subscriptionId);
+	
+	List<Subscription> getSubscriptions(long customerId);
 
 	void cancelSubscription(long subscriptionId);
 

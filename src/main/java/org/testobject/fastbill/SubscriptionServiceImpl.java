@@ -1,5 +1,6 @@
 package org.testobject.fastbill;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,11 +51,26 @@ class SubscriptionServiceImpl implements SubscriptionService {
 
 		Map<String, Object> subscription = data.get(0);
 
-		String customerId = (String) subscription.get("CUSTOMER_ID");
-		return new Subscription(subscriptionId, customerId, Util.secondsToTimestamp((String) subscription.get("START")),
-				Util.secondsToTimestamp((String) subscription.get("NEXT_EVENT")), Util.secondsToTimestamp((String) subscription
-						.get("LAST_EVENT")),
-				subscription.get("STATUS").toString());
+		return toSubscription(subscription);
+	}
+
+	@Override
+	public List<Subscription> getSubscriptions(long customerId) {
+		Map<String, Object> request = new RequestBuilder("subscription.get")
+				.addFilter("CUSTOMER_ID", customerId)
+				.build();
+		
+		ResponseReader response = new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.post(ClientResponse.class, request));
+
+		List<Map<String, Object>> data = response.getData("SUBSCRIPTIONS");
+		List<Subscription> subscriptions = new ArrayList<>(data.size());
+		
+		for (Map<String, Object> subscriptiondata : data) {
+			subscriptions.add(toSubscription(subscriptiondata));
+		}
+
+		return subscriptions;
 	}
 
 	@Override
@@ -64,6 +80,18 @@ class SubscriptionServiceImpl implements SubscriptionService {
 
 		new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, request));
+	}
+	
+	private static Subscription toSubscription(Map<String, Object> subscription) {
+		long subscriptionId = Long.parseLong((String) subscription.get("SUBSCRIPTION_ID"));
+		String customerId = (String) subscription.get("CUSTOMER_ID");
+		long start = Util.secondsToTimestamp((String) subscription.get("START"));
+		long next = Util.secondsToTimestamp((String) subscription.get("NEXT_EVENT"));
+		long last = Util.secondsToTimestamp((String) subscription.get("LAST_EVENT"));
+		long product = Long.parseLong((String)subscription.get("ARTICLE_NUMBER"));
+		String status = subscription.get("STATUS").toString();
+		
+		return new Subscription(subscriptionId, customerId, start, next, last, product, status);
 	}
 
 }
