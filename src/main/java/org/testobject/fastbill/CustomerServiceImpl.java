@@ -28,8 +28,9 @@ class CustomerServiceImpl implements CustomerService{
 			.addData("ORGANIZATION", organization)
 			.addData("FIRST_NAME", firstName)
 			.addData("LAST_NAME", lastName)
-			.addData("CUSTOMER_EXT_UID", locale.getCountry())
-			.addData("CUSTOMER_EXT_UID", email).build();
+			.addData("COUNTRY_CODE", locale.getCountry())
+			.addData("LANGUAGE_CODE", locale.getLanguage())
+			.addData("EMAIL", email).build();
 		
 		ResponseReader response = new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON).post(ClientResponse.class, request));
 		
