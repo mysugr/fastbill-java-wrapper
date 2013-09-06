@@ -83,7 +83,7 @@ class SubscriptionServiceImpl implements SubscriptionService {
 	}
 	
 	private static Subscription toSubscription(Map<String, Object> subscription) {
-		long subscriptionId = Long.parseLong((String) subscription.get("SUBSCRIPTION_ID"));
+		long subscriptionId = ((Number) subscription.get("SUBSCRIPTION_ID")).longValue();
 		String customerId = (String) subscription.get("CUSTOMER_ID");
 		long start = Util.secondsToTimestamp((String) subscription.get("START"));
 		long next = Util.secondsToTimestamp((String) subscription.get("NEXT_EVENT"));
