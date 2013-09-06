@@ -7,14 +7,14 @@ public interface SubscriptionService {
 	public class Subscription {
 
 		private long id;
-		private String customerId;
+		private long customerId;
 		private long start;
 		private long next;
 		private long last;
 		private String status;
 		private long product;
 
-		public Subscription(long id, String customerId, long start, long next, long last, long product, String status) {
+		public Subscription(long id, long customerId, long start, long next, long last, long product, String status) {
 			this.id = id;
 			this.customerId = customerId;
 			this.start = start;
@@ -28,7 +28,7 @@ public interface SubscriptionService {
 			return id;
 		}
 
-		public String getCustomerId() {
+		public long getCustomerId() {
 			return customerId;
 		}
 
