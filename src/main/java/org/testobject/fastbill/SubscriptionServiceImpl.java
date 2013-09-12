@@ -31,6 +31,17 @@ class SubscriptionServiceImpl implements SubscriptionService {
 
 		return ((Number) response.getData("SUBSCRIPTION_ID")).longValue();
 	}
+	
+	@Override
+	public void updateSubscription(Subscription subscription) {
+		Map<String, Object> request = new RequestBuilder("subscription.update")
+			.addData("SUBSCRIPTION_ID", subscription.getId())
+			.addData("NEXT_EVENT", Util.timestampToDate(subscription.getNext())).build();
+		
+		new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.post(ClientResponse.class, request));
+	}
+
 
 	@Override
 	public Subscription getSubscription(long subscriptionId) {
@@ -93,5 +104,6 @@ class SubscriptionServiceImpl implements SubscriptionService {
 		
 		return new Subscription(subscriptionId, customerId, start, next, last, product, status);
 	}
+
 
 }

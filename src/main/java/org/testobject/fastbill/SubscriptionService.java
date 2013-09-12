@@ -39,6 +39,10 @@ public interface SubscriptionService {
 		public long getNext() {
 			return next;
 		}
+		
+		public void setNext(long next) {
+			this.next = next;
+		}
 
 		public long getLast() {
 			return last;
@@ -61,5 +65,7 @@ public interface SubscriptionService {
 	List<Subscription> getSubscriptions(long customerId);
 
 	void cancelSubscription(long subscriptionId);
-
+	
+	void updateSubscription(Subscription subscription);
+	
 }

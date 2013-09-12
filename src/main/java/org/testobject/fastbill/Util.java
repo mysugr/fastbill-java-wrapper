@@ -2,6 +2,7 @@ package org.testobject.fastbill;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Util {
 
@@ -20,4 +21,11 @@ public class Util {
 			throw new RuntimeException(date + " has the wrong date format");
 		}
 	}
+	
+	public static String timestampToDate(long timeStamp) {
+		Date date = new Date(timeStamp);
+		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+	}
+	
+	
 }
