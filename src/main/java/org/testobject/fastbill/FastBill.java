@@ -1,5 +1,7 @@
 package org.testobject.fastbill;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import org.testobject.fastbill.jersey.JsonClientFilter;
 
 import com.sun.jersey.api.client.Client;
@@ -18,6 +20,9 @@ public interface FastBill {
 	final class Factory {
 
 		public static FastBill create(final String userName, final String token) {
+			checkNotNull(userName);
+			checkNotNull(token);
+			
 			ClientConfig clientConfig = new DefaultClientConfig();
 			clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 

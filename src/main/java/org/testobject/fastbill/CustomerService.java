@@ -154,4 +154,6 @@ public interface CustomerService {
 	
 	public Customer get(long customerId);
 
+	public void delete(long ownExtId);
+
 }

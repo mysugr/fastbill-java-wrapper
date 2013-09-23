@@ -53,6 +53,9 @@ class CustomerServiceImpl implements CustomerService {
 				.post(ClientResponse.class, request));
 
 		List<Map<String, Object>> customers = response.getData("CUSTOMERS");
+		if(customers.isEmpty()){
+			return null;
+		}
 		Preconditions.checkArgument(customers.size() == 1, "found %s customers but expected only one for customerId", customers.size(),
 				customerId);
 
@@ -69,6 +72,16 @@ class CustomerServiceImpl implements CustomerService {
 		String changeDataUrl = (String) customer.get("CHANGEDATA_URL");
 		return new Customer(customerId, ownId, customerType, organization, firstName, lastName, locale, email, dashBoardUrl, changeDataUrl,
 				PaymentType.valueById(paymentType));
+	}
+	
+	@Override
+	public void delete(long customerId) {
+		
+		Map<String, Object> request = new RequestBuilder("customer.delete").addData("CUSTOMER_ID", customerId).build();
+		ResponseReader response = new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+				.post(ClientResponse.class, request));
+		
+		Preconditions.checkState("success".equals(response.getData("STATUS")));
 	}
 
 }
