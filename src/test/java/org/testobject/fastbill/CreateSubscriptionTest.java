@@ -1,55 +1,87 @@
 package org.testobject.fastbill;
 
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotNull;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
-import org.junit.Ignore;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+import org.testobject.fastbill.CustomerService.Customer;
+import org.testobject.fastbill.CustomerService.CustomerType;
 import org.testobject.fastbill.SubscriptionService.Subscription;
 
-@Ignore
+
 public class CreateSubscriptionTest {
 	
-	private final SubscriptionService subscriptionService = FastBill.Factory.create("aluedeke@testobject.com", "fea1de7de547714c91333e96691ef13eXuJUb9ADglQWwZgf7BaFCWDx2n65RPaR").getSubscriptionService();
+	private final String USER = System.getenv("FASTBILL_USER");
+	private final String TOKEN = System.getenv("FASTBILL_TOKEN");
 	
-	@Ignore @Test
-	public void createSubscription(){
-		long customerId = 298020;
-		long productId = 4;
+	private final FastBill FASTBILL = FastBill.Factory.create(USER, TOKEN);
+	
+	private final CustomerService customerService = FASTBILL.getCustomerService();
+	private final SubscriptionService subscriptionService = FASTBILL.getSubscriptionService();
+	
+	private Customer customer;
+	private long createdSubscription;
+	
+	@Before
+	public void setUp(){
+		String ownId = "testUser12";
+		CustomerType customerType = CustomerType.BUSINESS;
+		String organization = "a company";
+		String firstName = "firstname1";
+		String lastName = "lastname2";
+		Locale locale = Locale.US;
+		String email = "company@test.testobject.org";
 		
-		long subscriptionId = subscriptionService.createSubscription(customerId, productId);
-		Subscription subscription = subscriptionService.getSubscription(subscriptionId);
-		System.out.println(subscription);
+		customer = customerService.create(ownId, customerType, organization, firstName, lastName, locale, email);
+	}
+	
+	@After
+	public void tearDown(){
+		customerService.delete(customer.getCustomerId());
+		subscriptionService.cancelSubscription(createdSubscription);
+	}
+	
+	@Test
+	public void createSubscription(){
+		long productId = 100;
+		createdSubscription = subscriptionService.createSubscription(customer.getCustomerId(), productId);
+		
+		assertNotNull(createdSubscription);
 	}
 	
 	@Test
 	public void getSubscription(){
-		long customerId = 298020;
-		long productId = 4;
+		long productId = 100;
 		
-		long subscriptionId = subscriptionService.createSubscription(customerId, productId);
-		Subscription subscription = subscriptionService.getSubscription(subscriptionId);
-		System.out.println(subscription);
+		createdSubscription = subscriptionService.createSubscription(customer.getCustomerId(), productId);
+		Subscription subscription = subscriptionService.getSubscription(createdSubscription);
+		
+		assertNotNull(subscription);
+		assertNotNull(subscription.getId());
+		assertNotNull(subscription.getLast());
+		assertNotNull(subscription.getNext());
+		assertNotNull(subscription.getStart());
+		assertEquals("trial", subscription.getStatus());
+		assertEquals(productId, subscription.getProduct());
+		assertEquals(customer.getCustomerId(), subscription.getCustomerId());
 	}
 	
 	@Test
 	public void updateSubscription(){
 		
-		long customerId = 298467;
 		long productId = 200;
 		
-		
-		long subscriptionId = subscriptionService.createSubscription(customerId, productId);
-		Subscription subscription = subscriptionService.getSubscription(subscriptionId);
-		Subscription original = subscriptionService.getSubscription(subscriptionId);
+		createdSubscription = subscriptionService.createSubscription(customer.getCustomerId(), productId);
+		Subscription subscription = subscriptionService.getSubscription(createdSubscription);
+		Subscription original = subscriptionService.getSubscription(createdSubscription);
 		
 		Calendar cal = new GregorianCalendar(2014 + (int)Math.random() * 100, 00, 9);
 		long next = cal.getTimeInMillis();
@@ -57,16 +89,13 @@ public class CreateSubscriptionTest {
 		subscription.setNext(next);
 		subscriptionService.updateSubscription(subscription);
 		
-		subscription = subscriptionService.getSubscription(subscriptionId);
+		subscription = subscriptionService.getSubscription(createdSubscription);
 		assertThat(subscription.getId(), is(original.getId()));
 		assertThat(subscription.getCustomerId(), is(original.getCustomerId()));
 		assertThat(subscription.getLast(), is(original.getLast()));
 		assertThat(subscription.getProduct(), is(original.getProduct()));
 		assertThat(subscription.getStatus(), is(original.getStatus()));
 		assertThat(subscription.getStart(), is(original.getStart()));
-		
-		
-		System.out.println(subscription);
 	}
 
 }
