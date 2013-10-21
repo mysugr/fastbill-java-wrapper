@@ -101,8 +101,9 @@ class SubscriptionServiceImpl implements SubscriptionService {
 		long last = Util.secondsToTimestamp((String) subscription.get("LAST_EVENT"));
 		long product = Long.parseLong((String)subscription.get("ARTICLE_NUMBER"));
 		String status = subscription.get("STATUS").toString();
+		String hash = subscription.get("HASH").toString();
 		
-		return new Subscription(subscriptionId, customerId, start, next, last, product, status);
+		return new Subscription(subscriptionId, customerId, start, next, last, product, status, hash);
 	}
 
 

@@ -3,24 +3,24 @@ package org.testobject.fastbill;
 import java.util.Locale;
 
 public interface CustomerService {
-	
+
 	enum PaymentType {
 		INVOICE(1), DEBIT(2), CASH(3), PAYPAL(4), ADVANCE(5), CREDIT(6);
-		
+
 		private int id;
 
-		private PaymentType(int id){
+		private PaymentType(int id) {
 			this.id = id;
-			
+
 		}
-		
-		public static PaymentType valueById(int id){
+
+		public static PaymentType valueById(int id) {
 			for (PaymentType value : values()) {
-				if(value.id == id){
+				if (value.id == id) {
 					return value;
 				}
 			}
-			
+
 			throw new IllegalArgumentException("unkonw payment type with id " + id);
 		}
 	}
@@ -38,9 +38,11 @@ public interface CustomerService {
 		private String dashBoardUrl;
 		private String changeDataUrl;
 		private PaymentType paymentType;
+		private String hash;
 
 		public Customer(long customerId, String ownId, CustomerType customerType, String organization, String firstName,
-				String lastName, Locale locale, String email, String dashBoardUrl, String changeDataUrl, PaymentType paymentType) {
+				String lastName, Locale locale, String email, String dashBoardUrl, String changeDataUrl, PaymentType paymentType,
+				String hash) {
 			this.customerId = customerId;
 			this.ownId = ownId;
 			this.customerType = customerType;
@@ -52,6 +54,7 @@ public interface CustomerService {
 			this.dashBoardUrl = dashBoardUrl;
 			this.changeDataUrl = changeDataUrl;
 			this.paymentType = paymentType;
+			this.hash = hash;
 		}
 
 		public long getCustomerId() {
@@ -113,17 +116,21 @@ public interface CustomerService {
 		public void setEmail(String email) {
 			this.email = email;
 		}
-		
+
 		public String getDashBoardUrl() {
 			return dashBoardUrl;
 		}
-		
+
 		public String getChangeDataUrl() {
 			return changeDataUrl;
 		}
-		
+
 		public PaymentType getPaymentType() {
 			return paymentType;
+		}
+
+		public String getHash() {
+			return hash;
 		}
 
 	}
@@ -137,21 +144,21 @@ public interface CustomerService {
 		private CustomerType(String value) {
 			this.value = value;
 		}
-		
-		public static CustomerType valueByString(String customerType){
+
+		public static CustomerType valueByString(String customerType) {
 			for (CustomerType value : values()) {
-				if(value.value.equals(customerType)){
+				if (value.value.equals(customerType)) {
 					return value;
 				}
 			}
-			
+
 			throw new IllegalArgumentException("unkonw customer type with value " + customerType);
 		}
 	}
 
 	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, Locale locale,
 			String email);
-	
+
 	public Customer get(long customerId);
 
 	public void delete(long ownExtId);

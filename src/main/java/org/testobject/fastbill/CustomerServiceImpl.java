@@ -40,8 +40,10 @@ class CustomerServiceImpl implements CustomerService {
 		Long customerId = ((Number) response.getData("CUSTOMER_ID")).longValue();
 		String dashBoardUrl = response.getData("DASHBOARD_URL");
 		String changeDataUrl = response.getData("CHANGEDATA_URL");
+		String hash = response.getData("HASH");
+		
 		return new Customer(customerId, ownId, customerType, organization, firstName, lastName, locale, email, dashBoardUrl, changeDataUrl,
-				null);
+				null, hash);
 	}
 
 	@Override
@@ -70,8 +72,10 @@ class CustomerServiceImpl implements CustomerService {
 		int paymentType = Integer.parseInt((String) customer.get("PAYMENT_TYPE"));
 		String dashBoardUrl = (String) customer.get("DASHBOARD_URL");
 		String changeDataUrl = (String) customer.get("CHANGEDATA_URL");
+		String hash = (String) customer.get("HASH");
+
 		return new Customer(customerId, ownId, customerType, organization, firstName, lastName, locale, email, dashBoardUrl, changeDataUrl,
-				PaymentType.valueById(paymentType));
+				PaymentType.valueById(paymentType), hash);
 	}
 	
 	@Override

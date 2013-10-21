@@ -13,8 +13,9 @@ public interface SubscriptionService {
 		private long last;
 		private String status;
 		private long product;
+		private String hash;
 
-		public Subscription(long id, long customerId, long start, long next, long last, long product, String status) {
+		public Subscription(long id, long customerId, long start, long next, long last, long product, String status, String hash) {
 			this.id = id;
 			this.customerId = customerId;
 			this.start = start;
@@ -22,6 +23,7 @@ public interface SubscriptionService {
 			this.last = last;
 			this.product = product;
 			this.status = status;
+			this.hash = hash;
 		}
 
 		public long getId() {
@@ -39,7 +41,7 @@ public interface SubscriptionService {
 		public long getNext() {
 			return next;
 		}
-		
+
 		public void setNext(long next) {
 			this.next = next;
 		}
@@ -47,7 +49,7 @@ public interface SubscriptionService {
 		public long getLast() {
 			return last;
 		}
-		
+
 		public long getProduct() {
 			return product;
 		}
@@ -56,16 +58,20 @@ public interface SubscriptionService {
 			return status;
 		}
 
+		public String getHash() {
+			return hash;
+		}
+
 	}
 
 	long createSubscription(long customerId, long productId);
 
 	Subscription getSubscription(long subscriptionId);
-	
+
 	List<Subscription> getSubscriptions(long customerId);
 
 	void cancelSubscription(long subscriptionId);
-	
+
 	void updateSubscription(Subscription subscription);
-	
+
 }
