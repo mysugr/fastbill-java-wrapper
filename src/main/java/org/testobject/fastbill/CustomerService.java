@@ -38,11 +38,12 @@ public interface CustomerService {
 		private String dashBoardUrl;
 		private String changeDataUrl;
 		private PaymentType paymentType;
+		private String currencyCode;
 		private String hash;
 
+
 		public Customer(long customerId, String ownId, CustomerType customerType, String organization, String firstName,
-				String lastName, Locale locale, String email, String dashBoardUrl, String changeDataUrl, PaymentType paymentType,
-				String hash) {
+				String lastName, Locale locale, String email, String dashBoardUrl, String changeDataUrl, PaymentType paymentType, String currencyCode, String hash) {
 			this.customerId = customerId;
 			this.ownId = ownId;
 			this.customerType = customerType;
@@ -54,7 +55,10 @@ public interface CustomerService {
 			this.dashBoardUrl = dashBoardUrl;
 			this.changeDataUrl = changeDataUrl;
 			this.paymentType = paymentType;
+
+			this.setCurrencyCode(currencyCode);
 			this.hash = hash;
+
 		}
 
 		public long getCustomerId() {
@@ -129,6 +133,14 @@ public interface CustomerService {
 			return paymentType;
 		}
 
+        public String getCurrencyCode() {
+            return currencyCode;
+        }
+
+        public void setCurrencyCode(String currencyCode) {
+            this.currencyCode = currencyCode;
+        }
+
 		public String getHash() {
 			return hash;
 		}
@@ -157,7 +169,7 @@ public interface CustomerService {
 	}
 
 	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, Locale locale,
-			String email);
+			String email, String currencyCode);
 
 	public Customer get(long customerId);
 
