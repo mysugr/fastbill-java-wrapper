@@ -36,8 +36,9 @@ public class CustomerServiceTest {
 		String lastName = "lastname";
 		Locale locale = Locale.GERMANY;
 		String email = "user@test.testobject.org";
+		String currencyCode = "EUR";
 		
-		createdCustomer = customerService.create(ownExtId, customerType, organization, firstName, lastName, locale, email);
+		Customer createdCustomer = customerService.create(ownExtId, customerType, organization, firstName, lastName, locale, email, currencyCode);
 		assertNotNull(createdCustomer);
 		assertNotNull(createdCustomer.getCustomerId());
 	}
@@ -52,8 +53,9 @@ public class CustomerServiceTest {
 		String lastName = "lastname2";
 		Locale locale = Locale.US;
 		String email = "company@test.testobject.org";
+		String currencyCode = "EUR";
 		
-		createdCustomer = customerService.create(ownId, customerType, organization, firstName, lastName, locale, email);
+		createdCustomer = customerService.create(ownId, customerType, organization, firstName, lastName, locale, email, currencyCode);
 		Customer customer = customerService.get(createdCustomer.getCustomerId());
 		
 		assertNotNull(customer);
@@ -80,8 +82,9 @@ public class CustomerServiceTest {
 		String lastName = "lastname2";
 		Locale locale = Locale.US;
 		String email = "company@test.testobject.org";
+		String currencyCode = "EUR";
 		
-		Customer acustomer = customerService.create(ownId, customerType, organization, firstName, lastName, locale, email);
+		Customer acustomer = customerService.create(ownId, customerType, organization, firstName, lastName, locale, email, currencyCode);
 		assertNotNull(acustomer);
 		assertNotNull(acustomer.getCustomerId());
 		
@@ -89,6 +92,7 @@ public class CustomerServiceTest {
 		
 		Customer customer = customerService.get(acustomer.getCustomerId());
 		assertNull(customer);
+
 	}
 
 }
