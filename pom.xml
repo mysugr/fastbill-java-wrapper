@@ -3,7 +3,8 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.testobject.fastbill</groupId>
 	<artifactId>fastbill-java-api</artifactId>
-	<version>0.0.2</version>
+	<packaging>jar</packaging>
+	<version>0.0.3</version>
 
 	<dependencies>
 		<dependency>
@@ -42,8 +43,8 @@
 				<version>3.1</version>
 				<configuration>
 					<!-- http://maven.apache.org/plugins/maven-compiler-plugin/ -->
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 		</plugins>

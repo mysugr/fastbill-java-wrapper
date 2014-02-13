@@ -75,7 +75,7 @@ class SubscriptionServiceImpl implements SubscriptionService {
 				.post(ClientResponse.class, request));
 
 		List<Map<String, Object>> data = response.getData("SUBSCRIPTIONS");
-		List<Subscription> subscriptions = new ArrayList<>(data.size());
+		List<Subscription> subscriptions = new ArrayList<Subscription>(data.size());
 		
 		for (Map<String, Object> subscriptiondata : data) {
 			subscriptions.add(toSubscription(subscriptiondata));

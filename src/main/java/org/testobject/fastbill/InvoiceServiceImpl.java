@@ -29,14 +29,14 @@ public class InvoiceServiceImpl implements InvoiceService {
 		ResponseReader response = new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, request));
 
-		List<Invoice> invoices = new ArrayList<>();
+		List<Invoice> invoices = new ArrayList<Invoice>();
 		List<Map<String, Object>> invoiceData = response.getData("INVOICES");
 		for (Map<String, Object> map : invoiceData) {
 			String invoiceId = (String) map.get("INVOICE_ID");
 			String type = map.get("TYPE").toString();
 			String date = (String) map.get("INVOICE_DATE");
 			String documentUrl = (String) map.get("DOCUMENT_URL");
-			double total = (double) map.get("TOTAL");
+			double total = (Double) map.get("TOTAL");
 			String currency = (String) map.get("CURRENCY_CODE");
 			invoices.add(new Invoice(invoiceId, type, customerId, Util.dayToTimestamp(date), documentUrl, total, currency));
 		}
