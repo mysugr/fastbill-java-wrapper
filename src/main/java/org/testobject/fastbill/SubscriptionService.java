@@ -1,5 +1,6 @@
 package org.testobject.fastbill;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface SubscriptionService {
@@ -12,10 +13,11 @@ public interface SubscriptionService {
 		private long next;
 		private long last;
 		private String status;
-		private long product;
+		private String product;
 		private String hash;
 
-		public Subscription(long id, long customerId, long start, long next, long last, long product, String status, String hash) {
+		public Subscription(long id, long customerId, long start, long next, long last, String product, String status, String hash) {
+
 			this.id = id;
 			this.customerId = customerId;
 			this.start = start;
@@ -49,8 +51,7 @@ public interface SubscriptionService {
 		public long getLast() {
 			return last;
 		}
-
-		public long getProduct() {
+		public String getProduct() {
 			return product;
 		}
 
@@ -64,13 +65,15 @@ public interface SubscriptionService {
 
 	}
 
-	long createSubscription(long customerId, long productId);
+	long createSubscription(long customerId, String productId);
 
 	Subscription getSubscription(long subscriptionId);
 
 	List<Subscription> getSubscriptions(long customerId);
 
 	void cancelSubscription(long subscriptionId);
+
+	void setUsagedata(long subscriptionId, String productId, int quantity, BigDecimal unitPrice, String description, String usageDate, String currencyCode);
 
 	void updateSubscription(Subscription subscription);
 

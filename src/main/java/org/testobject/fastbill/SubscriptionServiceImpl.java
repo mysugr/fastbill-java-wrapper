@@ -1,5 +1,6 @@
 package org.testobject.fastbill;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ class SubscriptionServiceImpl implements SubscriptionService {
 	}
 
 	@Override
-	public long createSubscription(long customerId, long productId) {
+	public long createSubscription(long customerId, String productId) {
 		Map<String, Object> request = new RequestBuilder("subscription.create")
 				.addData("CUSTOMER_ID", customerId)
 				.addData("ARTICLE_NUMBER", productId).build();
@@ -61,7 +62,6 @@ class SubscriptionServiceImpl implements SubscriptionService {
 		}
 
 		Map<String, Object> subscription = data.get(0);
-
 		return toSubscription(subscription);
 	}
 
@@ -92,14 +92,30 @@ class SubscriptionServiceImpl implements SubscriptionService {
 		new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, request));
 	}
-	
+
+	public void setUsagedata(long subscriptionId, String productId, int quantity, BigDecimal unitPrice, String description,
+	      String usageDate, String currencyCode) {
+	  Map<String, Object> request = new RequestBuilder("subscription.setusagedata")
+	  .addData("SUBSCRIPTION_ID", subscriptionId)
+	  .addData("ARTICLE_NUMBER", productId)
+	  .addData("QUANTITY", quantity)
+	  .addData("UNIT_PRICE", unitPrice)
+	  .addData("DESCRIPTION", description)
+	  .addData("USAGE_DATE", usageDate)
+	  .addData("CURRENCY_CODE", currencyCode).build();
+
+	  ResponseReader response = new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+	      .post(ClientResponse.class, request));
+	  }
+
+
 	private static Subscription toSubscription(Map<String, Object> subscription) {
 		long subscriptionId = ((Number) subscription.get("SUBSCRIPTION_ID")).longValue();
 		long customerId = ((Number) subscription.get("CUSTOMER_ID")).longValue();
 		long start = Util.secondsToTimestamp((String) subscription.get("START"));
 		long next = Util.secondsToTimestamp((String) subscription.get("NEXT_EVENT"));
 		long last = Util.secondsToTimestamp((String) subscription.get("LAST_EVENT"));
-		long product = Long.parseLong((String)subscription.get("ARTICLE_NUMBER"));
+		String product = (String) subscription.get("ARTICLE_NUMBER");
 		String status = subscription.get("STATUS").toString();
 		String hash = subscription.get("HASH").toString();
 		
