@@ -30,8 +30,8 @@
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey.contribs</groupId>
-			<artifactId>jersey-apache-client4</artifactId>
-			<version>1.16</version>
+			<artifactId>jersey-apache-client</artifactId>
+			<version>1.5</version>
 		</dependency>
 	</dependencies>
 

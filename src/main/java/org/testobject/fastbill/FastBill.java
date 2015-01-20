@@ -11,7 +11,7 @@ import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
-import com.sun.jersey.client.apache4.ApacheHttpClient4;
+import com.sun.jersey.client.apache.ApacheHttpClient;
 
 public interface FastBill {
 
@@ -26,7 +26,7 @@ public interface FastBill {
 			ClientConfig clientConfig = new DefaultClientConfig();
 			clientConfig.getFeatures().put(JSONConfiguration.FEATURE_POJO_MAPPING, Boolean.TRUE);
 
-			Client client = ApacheHttpClient4.create(clientConfig);
+			Client client = ApacheHttpClient.create(clientConfig);
 			client.addFilter(new HTTPBasicAuthFilter(userName, token));
 			client.addFilter(new LoggingFilter(System.out));
 			client.addFilter(new JsonClientFilter());
