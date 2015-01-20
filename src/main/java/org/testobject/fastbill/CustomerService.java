@@ -25,7 +25,7 @@ public interface CustomerService {
 		}
 	}
 
-	class Customer {
+	public class Customer {
 
 		private final long customerId;
 		private String ownId;
@@ -147,7 +147,7 @@ public interface CustomerService {
 
 	}
 
-	enum CustomerType {
+	public enum CustomerType {
 
 		BUSINESS("business"), CONSUMER("consumer");
 
