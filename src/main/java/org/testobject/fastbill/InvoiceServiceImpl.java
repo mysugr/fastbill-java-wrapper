@@ -1,6 +1,8 @@
 package org.testobject.fastbill;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,5 +45,36 @@ public class InvoiceServiceImpl implements InvoiceService {
 
 		return invoices;
 	}
+	
+	
+	@Override
+	public Long createInvoice(long customerId, String currency, Date deliveryDate, boolean euDelivery, Iterable<InvoiceItem> items) {
+
+	    ArrayList<Map<String,Object>> itemMaps = new ArrayList<Map<String,Object>>();
+	    for (InvoiceItem item: items) {
+	        Map<String,Object> itemMap = new HashMap<String,Object>();
+	        itemMap.put("ARTICLE_NUMBER", item.getArticleNumber());
+	        itemMap.put("DESCRIPTION", item.getDescription());
+	        itemMap.put("QUANTITY", item.getQuantity());
+	        itemMap.put("UNIT_PRICE", item.getUnitPrice());
+	        itemMap.put("VAT_PERCENT", item.getVatPercent());
+	        itemMaps.add(itemMap);
+	    }
+	    
+	    Map<String, Object> request = new RequestBuilder("invoice.create")
+            .addData("CUSTOMER_ID", customerId)
+            .addData("CURRENCY_CODE", currency)
+            .addData("DELIVERY_DATE", deliveryDate)
+            .addData("EU_DELIVERY", euDelivery ? 1 : 0)
+            .addData("ITEMS", itemMaps)
+            .build();
+
+	    ResponseReader response = new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+	        .post(ClientResponse.class, request));
+
+	    Long invoiceId = ((Number) response.getData("INVOICE_ID")).longValue();
+	    return invoiceId;
+	}
+
 
 }

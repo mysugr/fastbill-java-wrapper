@@ -1,5 +1,6 @@
 package org.testobject.fastbill;
 
+import java.util.Date;
 import java.util.List;
 
 public interface InvoiceService {
@@ -54,6 +55,46 @@ public interface InvoiceService {
 		
 	}
 	
-	public List<Invoice> getInvoice(long customerId);
 
+	public class InvoiceItem {
+	    
+	    private String articleNumber;
+	    private String description;
+	    private int quantity;
+	    private float unitPrice;
+	    private float vatPercent;
+	    
+	    public InvoiceItem(String articleNumber, String description, int quantity, float unitPrice, float vatPercent) {
+	        this.articleNumber = articleNumber;
+	        this.description = description;
+	        this.quantity = quantity;
+	        this.unitPrice = unitPrice;
+	        this.vatPercent = vatPercent;
+	    }
+
+        public String getArticleNumber() {
+            return articleNumber;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public float getUnitPrice() {
+            return unitPrice;
+        }
+
+        public float getVatPercent() {
+            return vatPercent;
+        }
+	}
+	
+	
+	public List<Invoice> getInvoice(long customerId);
+	
+	public Long createInvoice(long customerId, String currency, Date deliveryDate, boolean euDelivery, Iterable<InvoiceItem> items);
 }
