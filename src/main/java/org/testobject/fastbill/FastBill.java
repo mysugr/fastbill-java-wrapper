@@ -15,7 +15,7 @@ import com.sun.jersey.client.apache4.ApacheHttpClient4;
 
 public interface FastBill {
 
-	public static final String ENDPOINT = "https://automatic.fastbill.com/api/1.0/api.php";
+	public static final String ENDPOINT = "https://my.fastbill.com/api/1.0/api.php";
 
 	final class Factory {
 
