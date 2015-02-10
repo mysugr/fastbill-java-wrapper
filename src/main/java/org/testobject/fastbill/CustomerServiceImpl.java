@@ -21,7 +21,9 @@ class CustomerServiceImpl implements CustomerService {
 		this.endpointResource = endpointResource;
 	}
 
-	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, String countryCode, String languageCode,
+	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, 
+	        String address, String address2, String zipCode, String city,
+	        String countryCode, String languageCode,
 			String email, String currencyCode) {
 
 		Map<String, Object> request = new RequestBuilder("customer.create")
@@ -30,10 +32,15 @@ class CustomerServiceImpl implements CustomerService {
 				.addData("ORGANIZATION", organization)
 				.addData("FIRST_NAME", firstName)
 				.addData("LAST_NAME", lastName)
+				.addData("ADDRESS", address)
+				.addData("ADDRESS_2", address2)
+				.addData("ZIPCODE", zipCode)
+				.addData("CITY", city)
 				.addData("COUNTRY_CODE", countryCode)
 				.addData("LANGUAGE_CODE", languageCode)
 				.addData("EMAIL", email)
-				.addData("CURRENCY_CODE", currencyCode).build();
+				.addData("CURRENCY_CODE", currencyCode)
+				.build();
 
 		ResponseReader response = new ResponseReader(endpointResource.type(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
 				.post(ClientResponse.class, request));
@@ -77,8 +84,15 @@ class CustomerServiceImpl implements CustomerService {
 		String hash = (String) customer.get("HASH");
 
 		String currencyCode = (String) customer.get("CURRENCY_CODE");
-		return new Customer(customerId, ownId, customerType, organization, firstName, lastName, countryCode, languageCode, email, dashBoardUrl, changeDataUrl,
+		Customer returnCustomer = new Customer(customerId, ownId, customerType, organization, firstName, lastName, countryCode, languageCode, email, dashBoardUrl, changeDataUrl,
 				PaymentType.valueById(paymentType), currencyCode, hash);
+		
+		returnCustomer.setAddress((String) customer.get("ADDRESS"));
+        returnCustomer.setAddress2((String) customer.get("ADDRESS_2"));
+        returnCustomer.setZipCode((String) customer.get("ZIPCODE"));
+        returnCustomer.setCity((String) customer.get("CITY"));
+        
+		return returnCustomer;
 		}
 	
 	@Override

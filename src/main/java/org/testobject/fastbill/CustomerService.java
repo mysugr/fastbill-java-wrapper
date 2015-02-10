@@ -32,6 +32,10 @@ public interface CustomerService {
 		private String organization;
 		private String firstName;
 		private String lastName;
+		private String address;
+		private String address2;
+		private String zipCode;
+		private String city;
 		private String countryCode;
 		private String languageCode;
 		private String email;
@@ -105,7 +109,40 @@ public interface CustomerService {
 		public void setLastName(String lastName) {
 			this.lastName = lastName;
 		}
+		
 
+		public void setAddress(String address) {
+		    this.address = address;
+		}
+		
+		public String getAddress() {
+		    return this.address;
+		}
+		
+		public void setAddress2(String address2) {
+		    this.address2 = address2;
+		}
+		
+		public String getAddress2() {
+		    return this.address2;
+		}
+		
+		public void setZipCode(String zipCode) {
+		    this.zipCode = zipCode;
+		}
+		
+		public String getZipCode() {
+		    return this.zipCode;
+		}
+		
+		public void setCity(String city) {
+		    this.city = city;
+		}
+		
+		public String getCity() {
+		    return this.city;
+		}
+		
 		public void setCountryCode(String countryCode) {
 		    this.countryCode = countryCode;
 		}
@@ -177,8 +214,10 @@ public interface CustomerService {
 		}
 	}
 
-	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, String countryCode, String languageCode,
-			String email, String currencyCode);
+    public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, 
+            String address, String address2, String zipCode, String city,
+            String countryCode, String languageCode,
+            String email, String currencyCode);
 
 	public Customer get(long customerId);
 
