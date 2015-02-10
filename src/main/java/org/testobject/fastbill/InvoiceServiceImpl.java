@@ -60,6 +60,7 @@ public class InvoiceServiceImpl implements InvoiceService {
 	        if (!Float.isNaN(item.getVatPercent())) {
 	            itemMap.put("VAT_PERCENT", item.getVatPercent());
 	        }
+	        itemMap.put("IS_GROSS", item.isGross() ? 1 : 0);
 	        itemMaps.add(itemMap);
 	    }
 	    

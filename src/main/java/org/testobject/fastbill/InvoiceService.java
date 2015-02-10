@@ -63,13 +63,15 @@ public interface InvoiceService {
 	    private int quantity;
 	    private float unitPrice;
 	    private float vatPercent;
+	    private boolean gross;
 	    
-	    public InvoiceItem(String articleNumber, String description, int quantity, float unitPrice, float vatPercent) {
+	    public InvoiceItem(String articleNumber, String description, int quantity, float unitPrice, float vatPercent, boolean gross) {
 	        this.articleNumber = articleNumber;
 	        this.description = description;
 	        this.quantity = quantity;
 	        this.unitPrice = unitPrice;
 	        this.vatPercent = vatPercent;
+	        this.gross = gross;
 	    }
 
         public String getArticleNumber() {
@@ -90,6 +92,10 @@ public interface InvoiceService {
 
         public float getVatPercent() {
             return vatPercent;
+        }
+        
+        public boolean isGross() {
+            return gross;
         }
 	}
 	
