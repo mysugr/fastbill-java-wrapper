@@ -1,6 +1,5 @@
 package org.testobject.fastbill;
 
-import java.util.Locale;
 
 public interface CustomerService {
 
@@ -33,7 +32,8 @@ public interface CustomerService {
 		private String organization;
 		private String firstName;
 		private String lastName;
-		private Locale locale;
+		private String countryCode;
+		private String languageCode;
 		private String email;
 		private String dashBoardUrl;
 		private String changeDataUrl;
@@ -43,14 +43,15 @@ public interface CustomerService {
 
 
 		public Customer(long customerId, String ownId, CustomerType customerType, String organization, String firstName,
-				String lastName, Locale locale, String email, String dashBoardUrl, String changeDataUrl, PaymentType paymentType, String currencyCode, String hash) {
+				String lastName, String countryCode, String languageCode, String email, String dashBoardUrl, String changeDataUrl, PaymentType paymentType, String currencyCode, String hash) {
 			this.customerId = customerId;
 			this.ownId = ownId;
 			this.customerType = customerType;
 			this.organization = organization;
 			this.firstName = firstName;
 			this.lastName = lastName;
-			this.locale = locale;
+			this.countryCode = countryCode;
+			this.languageCode = languageCode;
 			this.email = email;
 			this.dashBoardUrl = dashBoardUrl;
 			this.changeDataUrl = changeDataUrl;
@@ -105,12 +106,20 @@ public interface CustomerService {
 			this.lastName = lastName;
 		}
 
-		public Locale getLocale() {
-			return locale;
+		public void setCountryCode(String countryCode) {
+		    this.countryCode = countryCode;
 		}
-
-		public void setLocale(Locale locale) {
-			this.locale = locale;
+		
+		public String getCountryCode() {
+		    return this.countryCode;
+		}
+		
+		public void setLanguageCode(String languageCode) {
+		    this.languageCode = languageCode;
+		}
+		
+		public String getLanguageCode() {
+		    return this.languageCode;
 		}
 
 		public String getEmail() {
@@ -168,7 +177,7 @@ public interface CustomerService {
 		}
 	}
 
-	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, Locale locale,
+	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, String countryCode, String languageCode,
 			String email, String currencyCode);
 
 	public Customer get(long customerId);

@@ -21,7 +21,7 @@ class CustomerServiceImpl implements CustomerService {
 		this.endpointResource = endpointResource;
 	}
 
-	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, Locale locale,
+	public Customer create(String ownId, CustomerType customerType, String organization, String firstName, String lastName, String countryCode, String languageCode,
 			String email, String currencyCode) {
 
 		Map<String, Object> request = new RequestBuilder("customer.create")
@@ -30,8 +30,8 @@ class CustomerServiceImpl implements CustomerService {
 				.addData("ORGANIZATION", organization)
 				.addData("FIRST_NAME", firstName)
 				.addData("LAST_NAME", lastName)
-				.addData("COUNTRY_CODE", locale.getCountry())
-				.addData("LANGUAGE_CODE", locale.getLanguage())
+				.addData("COUNTRY_CODE", countryCode)
+				.addData("LANGUAGE_CODE", languageCode)
 				.addData("EMAIL", email)
 				.addData("CURRENCY_CODE", currencyCode).build();
 
@@ -43,7 +43,7 @@ class CustomerServiceImpl implements CustomerService {
 		String changeDataUrl = response.getData("CHANGEDATA_URL");
 		String hash = response.getData("HASH");
 		
-		return new Customer(customerId, ownId, customerType, organization, firstName, lastName, locale, email, dashBoardUrl, changeDataUrl,
+		return new Customer(customerId, ownId, customerType, organization, firstName, lastName, countryCode, languageCode, email, dashBoardUrl, changeDataUrl,
 				null, currencyCode, hash);
 	}
 
@@ -68,7 +68,8 @@ class CustomerServiceImpl implements CustomerService {
 		String organization = (String) customer.get("ORGANIZATION");
 		String firstName = (String) customer.get("FIRST_NAME");
 		String lastName = (String) customer.get("LAST_NAME");
-		Locale locale = new Locale(Locale.ENGLISH.toString(), (String) customer.get("COUNTRY_CODE"));
+		String countryCode = (String) customer.get("COUNTRY_CODE");
+		String languageCode = (String) customer.get("LANGUAGE_CODE");
 		String email = (String) customer.get("EMAIL");
 		int paymentType = Integer.parseInt((String) customer.get("PAYMENT_TYPE"));
 		String dashBoardUrl = (String) customer.get("DASHBOARD_URL");
@@ -76,7 +77,7 @@ class CustomerServiceImpl implements CustomerService {
 		String hash = (String) customer.get("HASH");
 
 		String currencyCode = (String) customer.get("CURRENCY_CODE");
-		return new Customer(customerId, ownId, customerType, organization, firstName, lastName, locale, email, dashBoardUrl, changeDataUrl,
+		return new Customer(customerId, ownId, customerType, organization, firstName, lastName, countryCode, languageCode, email, dashBoardUrl, changeDataUrl,
 				PaymentType.valueById(paymentType), currencyCode, hash);
 		}
 	

@@ -57,7 +57,9 @@ public class InvoiceServiceImpl implements InvoiceService {
 	        itemMap.put("DESCRIPTION", item.getDescription());
 	        itemMap.put("QUANTITY", item.getQuantity());
 	        itemMap.put("UNIT_PRICE", item.getUnitPrice());
-	        itemMap.put("VAT_PERCENT", item.getVatPercent());
+	        if (!Float.isNaN(item.getVatPercent())) {
+	            itemMap.put("VAT_PERCENT", item.getVatPercent());
+	        }
 	        itemMaps.add(itemMap);
 	    }
 	    
