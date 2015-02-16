@@ -4,7 +4,7 @@
 	<groupId>org.testobject.fastbill</groupId>
 	<artifactId>fastbill-java-api</artifactId>
 	<packaging>jar</packaging>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 
 	<dependencies>
 		<dependency>
