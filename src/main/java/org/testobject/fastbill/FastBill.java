@@ -9,7 +9,6 @@ import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import com.sun.jersey.api.client.filter.LoggingFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import com.sun.jersey.client.apache.ApacheHttpClient;
 
@@ -28,7 +27,7 @@ public interface FastBill {
 
 			Client client = ApacheHttpClient.create(clientConfig);
 			client.addFilter(new HTTPBasicAuthFilter(userName, token));
-			client.addFilter(new LoggingFilter(System.out));
+			//client.addFilter(new LoggingFilter(System.out));
 			client.addFilter(new JsonClientFilter());
 
 			final WebResource endpointResource = client.resource(ENDPOINT);
