@@ -34,27 +34,13 @@ public interface FastBill {
 			final WebResource endpointResource = client.resource(ENDPOINT);
 
 			return new FastBill() {
-				public CustomerService getCustomerService() {
-					return new CustomerServiceImpl(endpointResource);
-				}
-				
-				@Override
-				public SubscriptionService getSubscriptionService() {
-					return new SubscriptionServiceImpl(endpointResource);
-				}
-				
-				@Override
-				public InvoiceService getInvoiceService() {
-					return new InvoiceServiceImpl(endpointResource);
-				}
+			    public Service getService() {
+			        return new Service(endpointResource);
+			    }
 			};
 		}
 	}
-
-	public CustomerService getCustomerService();
-
-	public SubscriptionService getSubscriptionService();
 	
-	public InvoiceService getInvoiceService();
+	public Service getService();
 
 }
